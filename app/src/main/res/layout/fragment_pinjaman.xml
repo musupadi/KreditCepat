@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.ui.pinjaman.PinjamanFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_weight="1"
+            app:lottie_loop="true"
+            app:lottie_fileName="animation reverse orange wave.json"
+            app:lottie_autoPlay="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:rotation="180">
+
+        </com.airbnb.lottie.LottieAnimationView>
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_weight="1"
+            app:lottie_loop="true"
+            app:lottie_fileName="animation reverse orange wave.json"
+            app:lottie_autoPlay="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY">
+
+        </com.airbnb.lottie.LottieAnimationView>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:background="@drawable/button_rounded_primary">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/button_rounded_white">
+                    <ImageView
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ojk"/>
+                    <ImageView
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/afpi"/>
+                    <ImageView
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/inklusi"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_rounded_primary"
+                android:layout_margin="10dp"
+                android:padding="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/button_rounded_white"
+                    android:padding="10dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Jumlah pinjaman yang diinginkan"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold"/>
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/spinnerJumlahPinjaman"
+                        android:entries="@array/jumlah_pinjaman"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Untuk jangka Waktu berapa lama ?"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold"/>
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/spinnerWaktu"
+                        android:entries="@array/hari_pinjaman"/>
+                    <LinearLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Tanggal Pembayaran"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimary"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="15 Januari 1994"
+                            android:gravity="right"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimary"
+                            android:id="@+id/tvWaktuPembayaran"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Jumlah Pinjaman"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorBlack"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Rp.2.000.000"
+                            android:gravity="right"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorBlack"
+                            android:id="@+id/tvJumlahPinjaman"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Komisi"
+                            android:textColor="@color/colorBlack"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Rp.1.520.000"
+                            android:gravity="right"
+                            android:textColor="@color/colorBlack"
+                            android:id="@+id/tvKomisi"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Total Untuk pembayaran"
+                            android:textColor="@color/colorPrimary"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Rp.3.520.000"
+                            android:gravity="right"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimary"
+                            android:id="@+id/tvTotalPembayaran"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_rounded_primary"
+                        android:padding="5dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Dapatkan Dana Sekarang"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorWhite"
+                            android:gravity="center" />
+                    </LinearLayout>
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="*Perincian biaya dapat dilihat di dalam halaman FAQ"
+                        android:textColor="@color/colorBlack"
+                        android:gravity="center"
+                        android:textSize="10sp"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_rounded_primary"
+                android:layout_margin="10dp"
+                android:padding="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/button_rounded_white"
+                    android:padding="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Pinjaman online Kreditcepat Hanya dalam beberapa langkah"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold"/>
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/first"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Pilih jumlah yang dibutuhkan dan jangka waktu pinjaman"
+                        android:textColor="@color/colorBlack" />
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/second"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Lampirkan Formulir aplikasi pinjaman dan upload foto dokumen anda"
+                        android:textColor="@color/colorBlack" />
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/third"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Persyaratan yang harus dilakukan untuk dapat mendaftar/mengajukan pinjaman :"
+                        android:textColor="@color/colorBlack" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="•	Berumur 21 Tahun\n•	Memiliki nomor telepon selular yang benar/sah\n•	Memiliki EKTP yang berlaku\n•	Memiliki slip gaji yang terbaru (paling lama 2 bulan)\n•	Memiliki rekening bank untuk transfer dananya"
+                        android:textColor="@color/colorBlack" />
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/fourth"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:text="Terima uang di rekening bank Anda"
+                        android:textColor="@color/colorBlack" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

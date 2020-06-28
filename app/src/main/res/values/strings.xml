@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">KreditCepat</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_pinjaman">Pinjaman</string>
+    <string name="title_account">Akun</string>
+
+    <string-array name="jumlah_pinjaman">
+        <item>Rp.1.000.000</item>
+        <item>Rp.2.000.000</item>
+        <item>Rp.3.000.000</item>
+        <item>Rp.4.000.000</item>
+        <item>Rp.5.000.000</item>
+        <item>Rp.6.000.000</item>
+        <item>Rp.7.000.000</item>
+    </string-array>
+    <string-array name="hari_pinjaman">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>6</item>
+        <item>7</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+    </string-array>
+    <string name="syarat">
+        •	Berumur 21 Tahun\n
+        •	Memiliki nomor telepon selular yang benar/sah\n
+        •	Memiliki EKTP yang berlaku\n
+        •	Memiliki slip gaji yang terbaru (paling lama 2 bulan)\n
+        •	Memiliki rekening bank untuk transfer dananya
+    </string>
+</resources>

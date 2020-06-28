@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_weight="1"
+        android:id="@+id/animation"
+        app:lottie_loop="true"
+        app:lottie_fileName="animation orange wave.json"
+        app:lottie_autoPlay="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY">
+
+    </com.airbnb.lottie.LottieAnimationView>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_rounded_primary"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:foregroundGravity="center"
+                android:padding="10dp">
+                <LinearLayout
+                    android:padding="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/button_rounded_white">
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Login"
+                        android:textSize="25dp"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginBottom="10dp"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:textColorHint="@color/colorPrimary">
+
+                        <EditText
+                            android:id="@+id/etEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Email"
+                            android:ems="10"
+                            android:inputType="text"
+                            android:textSize="20sp"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:textColorHint="@color/colorPrimary"
+                        app:passwordToggleEnabled="true">
+
+                        <EditText
+                            android:id="@+id/etPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Password"
+                            android:ems="10"
+                            android:inputType="textPassword"
+                            android:textSize="20sp"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:id="@+id/btnLogin"
+                        android:text="Login"
+                        android:background="@drawable/button_rounded_primary">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Masuk"
+                            android:gravity="center"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:id="@+id/btnKembali"
+                        android:text="Login"
+                        android:background="@drawable/button_rounded_primary">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Kembali"
+                            android:gravity="center"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+</RelativeLayout>
