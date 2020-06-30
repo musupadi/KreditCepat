@@ -10,17 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_weight="1"
-            app:lottie_loop="true"
-            app:lottie_fileName="animation reverse orange wave.json"
-            app:lottie_autoPlay="true"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:rotation="180">
 
-        </com.airbnb.lottie.LottieAnimationView>
         <com.airbnb.lottie.LottieAnimationView
             android:layout_weight="1"
             app:lottie_loop="true"
@@ -79,6 +69,7 @@
                         android:textStyle="bold"
                         android:textSize="12sp"
                         android:layout_marginBottom="5dp"/>
+
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
             <LinearLayout
@@ -92,6 +83,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/linearTentang"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -100,7 +92,6 @@
                         android:padding="10dp">
                         <LinearLayout
                             android:layout_weight="1"
-                            android:id="@+id/linearHospital"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
@@ -123,6 +114,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/linearProduk"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -131,7 +123,6 @@
                         android:padding="10dp">
                         <LinearLayout
                             android:layout_weight="1"
-                            android:id="@+id/linearFMCG"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
@@ -160,6 +151,7 @@
                     android:layout_height="150dp"
                     android:orientation="horizontal">
                     <LinearLayout
+                        android:id="@+id/linearCaraPinjam"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -168,7 +160,6 @@
                         android:padding="10dp">
                         <LinearLayout
                             android:layout_weight="1"
-                            android:id="@+id/linearCaraPinjam"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"

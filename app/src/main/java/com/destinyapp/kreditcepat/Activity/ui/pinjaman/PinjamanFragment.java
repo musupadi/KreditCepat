@@ -1,13 +1,17 @@
 package com.destinyapp.kreditcepat.Activity.ui.pinjaman;
 
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,8 +19,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.destinyapp.kreditcepat.Activity.RegisterActivity;
 import com.destinyapp.kreditcepat.Model.Method;
 import com.destinyapp.kreditcepat.R;
+import com.destinyapp.kreditcepat.SharedPreferance.DB_Helper;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -25,6 +31,9 @@ public class PinjamanFragment extends Fragment {
     Spinner Pinjaman,JangkaWaktu;
     Method method;
     TextView Tanggal,Jumlah,Komisi,Total;
+    DB_Helper dbHelper;
+    String email,nama,telpon,alamat,nik;
+    LinearLayout bayar;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_pinjaman, container, false);
@@ -40,6 +49,35 @@ public class PinjamanFragment extends Fragment {
         Jumlah=view.findViewById(R.id.tvJumlahPinjaman);
         Komisi=view.findViewById(R.id.tvKomisi);
         Total=view.findViewById(R.id.tvTotalPembayaran);
+        dbHelper = new DB_Helper(getActivity());
+        Cursor cursor = dbHelper.checkSession();
+        if (cursor.getCount()>0){
+            while (cursor.moveToNext()){
+                email = cursor.getString(0);
+                nama = cursor.getString(1);
+                telpon = cursor.getString(2);
+                alamat = cursor.getString(3);
+                nik = cursor.getString(4);
+            }
+        }
+        bayar = view.findViewById(R.id.linearBayar);
+        if (email == null){
+            bayar.setBackgroundResource(R.drawable.button_rounded_disable);
+            bayar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), RegisterActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }else{
+            bayar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(getActivity(), "Uang akan segera dikirimkan", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
         method=new Method();
         Pinjaman.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

@@ -1,11 +1,13 @@
 package com.destinyapp.kreditcepat.Activity.ui.home;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.destinyapp.kreditcepat.Activity.CaraPinjamActivity;
+import com.destinyapp.kreditcepat.Activity.ProductActivity;
+import com.destinyapp.kreditcepat.Activity.TentangActivity;
 import com.destinyapp.kreditcepat.Model.Method;
 import com.destinyapp.kreditcepat.R;
 import com.destinyapp.kreditcepat.SharedPreferance.DB_Helper;
@@ -28,6 +33,7 @@ public class HomeFragment extends Fragment {
     TextView tvHeader,tvTgl;
     DB_Helper dbHelper;
     String email,nama,telpon,alamat,nik;
+    LinearLayout TentangKami,ProdukKami,CaraPinjam;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -37,6 +43,9 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        TentangKami = view.findViewById(R.id.linearTentang);
+        ProdukKami = view.findViewById(R.id.linearProduk);
+        CaraPinjam = view.findViewById(R.id.linearCaraPinjam);
         dbHelper = new DB_Helper(getActivity());
         Cursor cursor = dbHelper.checkSession();
         if (cursor.getCount()>0){
@@ -88,5 +97,26 @@ public class HomeFragment extends Fragment {
         Date date = new Date();
         String thisDay = dateFormat.format(date);
         tvTgl.setText(method.getToday()+", "+thisDay);
+        TentangKami.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), TentangActivity.class);
+                startActivity(intent);
+            }
+        });
+        ProdukKami.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ProductActivity.class);
+                startActivity(intent);
+            }
+        });
+        CaraPinjam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), CaraPinjamActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

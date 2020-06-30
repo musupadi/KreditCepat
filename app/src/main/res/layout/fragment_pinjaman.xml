@@ -17,17 +17,6 @@
             app:lottie_autoPlay="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:rotation="180">
-
-        </com.airbnb.lottie.LottieAnimationView>
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_weight="1"
-            app:lottie_loop="true"
-            app:lottie_fileName="animation reverse orange wave.json"
-            app:lottie_autoPlay="true"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:scaleType="fitXY">
 
         </com.airbnb.lottie.LottieAnimationView>
@@ -193,6 +182,7 @@
                             android:id="@+id/tvTotalPembayaran"/>
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/linearBayar"
                         android:layout_marginTop="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

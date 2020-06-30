@@ -6,9 +6,8 @@
     android:layout_height="match_parent">
     <com.airbnb.lottie.LottieAnimationView
         android:layout_weight="1"
-        android:id="@+id/animation"
         app:lottie_loop="true"
-        app:lottie_fileName="animation orange wave.json"
+        app:lottie_fileName="animation reverse orange wave.json"
         app:lottie_autoPlay="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
