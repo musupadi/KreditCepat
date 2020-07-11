@@ -12,12 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.CaraPinjamActivity"
-            android:parentActivityName=".Activity.HomeActivity"></activity>
-        <activity android:name=".Activity.ProductActivity"
-            android:parentActivityName=".Activity.HomeActivity"/>
-        <activity android:name=".Activity.TentangActivity"
-            android:parentActivityName=".Activity.HomeActivity"/>
+        <activity
+            android:name=".Activity.About.AboutActivity"
+            android:theme="@style/AppThemeNoAction"
+            ></activity>
+        <activity
+            android:name=".Activity.CaraPinjamActivity"
+            android:parentActivityName=".Activity.HomeActivity" />
+        <activity
+            android:name=".Activity.ProductActivity"
+            android:parentActivityName=".Activity.HomeActivity" />
+        <activity
+            android:name=".Activity.TentangActivity"
+            android:parentActivityName=".Activity.HomeActivity" />
         <activity
             android:name=".Activity.RegisterActivity"
             android:theme="@style/AppThemeNoAction" />
@@ -28,7 +35,8 @@
             android:name=".Activity.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppThemeNoAction" />
-        <activity android:name=".Activity.MainActivity"
+        <activity
+            android:name=".Activity.MainActivity"
             android:theme="@style/AppThemeNoAction">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

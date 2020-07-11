@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.animation.Animator;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         dbHelper = new DB_Helper(MainActivity.this);
         Cursor cursor = dbHelper.checkSession();
+
         if (cursor.getCount()>0){
             while (cursor.moveToNext()){
                 email = cursor.getString(0);
@@ -39,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
         anim.addAnimatorListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
-
+                final MediaPlayer SuaraMe = MediaPlayer.create(MainActivity.this,R.raw.welcome);
+                SuaraMe.start();
             }
 
             @Override

@@ -4,7 +4,11 @@
     <string name="title_home">Home</string>
     <string name="title_pinjaman">Pinjaman</string>
     <string name="title_account">Akun</string>
-
+    <string name="nama">Rokhani</string>
+    <string name="email">fitryarokhani@gmail.com</string>
+    <string name="no_telpon">085888842496</string>
+    <string name="about_me">Saya merupakan seorang mahasiswa
+ Semester 8 di Universitas Indrapasta PGRI Jurusan Teknik Informatika, Aplikasi ini dibuat untuk memenuhi Tugas Akhir dari kampus dan juga untuk mempermudah pengenalan Peminjaman Dana Online</string>
     <string-array name="jumlah_pinjaman">
         <item>Rp.1.000.000</item>
         <item>Rp.2.000.000</item>
@@ -13,6 +17,7 @@
         <item>Rp.5.000.000</item>
         <item>Rp.6.000.000</item>
         <item>Rp.7.000.000</item>
+        <item>Rp.8.000.000</item>
     </string-array>
     <string-array name="hari_pinjaman">
         <item>1</item>
@@ -61,4 +66,6 @@
     <string name="cara">Manusia terlahir dengan rasa ingin tahu yang besar. \"Bagaimana caranya?\" adalah salah satu pertanyaan tertua di muka bumi ini. Cari tahu dan kenalilah produk kami.</string>
     <string name="bagaimana_cara">1.Tentukan jumlah pinjaman dan jangka waktu pada halaman web kreditcepat.co.id\nKlik tombol \"Dapatkan dana sekarang\"\n3.Buat akun Anda\n4.Jawab pertanyaan di formulir aplikasi\n5.Tunggu telepon dari kami\n6.Dapatkan uang di rekening Anda</string>
     <string name="pembayaran">Gunakanlah pilihan metode pembayaran yang lebih mudah dan lebih nyaman untuk membayar pinjaman Anda - DOKU. DOKU adalah layanan pembayaran elektronik yang dapat diandalkan di Indonesia.\nCukup dengan log in ke akun Anda, klik tombol bayar dan ikuti instruksi selanjutnya yang sudah disediakan.\nUntuk menjadi perhatiannya, DOKU menerapkan biaya transaksi sebesar Rp. 4.500.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

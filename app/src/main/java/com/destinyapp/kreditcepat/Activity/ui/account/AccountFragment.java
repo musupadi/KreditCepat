@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.destinyapp.kreditcepat.Activity.About.AboutActivity;
 import com.destinyapp.kreditcepat.Activity.HomeActivity;
 import com.destinyapp.kreditcepat.Activity.LoginActivity;
 import com.destinyapp.kreditcepat.Activity.RegisterActivity;
@@ -27,7 +29,7 @@ import com.destinyapp.kreditcepat.SharedPreferance.DB_Helper;
 public class AccountFragment extends Fragment {
     DB_Helper dbHelper;
     String email,nama,telpon,alamat,nik;
-    LinearLayout masuk,keluar,daftar;
+    LinearLayout masuk,keluar,daftar,tentang;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -41,6 +43,7 @@ public class AccountFragment extends Fragment {
         masuk=view.findViewById(R.id.linearMasuk);
         keluar=view.findViewById(R.id.linearKeluar);
         daftar=view.findViewById(R.id.linearDaftar);
+        tentang=view.findViewById(R.id.linearTentang);
         dbHelper = new DB_Helper(getActivity());
         Cursor cursor = dbHelper.checkSession();
         if (cursor.getCount()>0){
@@ -71,6 +74,8 @@ public class AccountFragment extends Fragment {
         keluar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final MediaPlayer SuaraMe = MediaPlayer.create(getActivity(),R.raw.out);
+                SuaraMe.start();
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setMessage("Anda Yakin ingin Logout ?")
                         .setCancelable(false)
@@ -98,6 +103,13 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+        tentang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AboutActivity.class);
                 startActivity(intent);
             }
         });
