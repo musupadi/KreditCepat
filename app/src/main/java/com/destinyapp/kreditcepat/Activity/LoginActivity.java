@@ -71,11 +71,14 @@ public class LoginActivity extends AppCompatActivity {
 //                        SessionLoginSucces(username,password);
                         Toast.makeText(LoginActivity.this, "Password yang anda masukan Salah", Toast.LENGTH_SHORT).show();
                     } else {
-                        dbHelper.saveSession(response.body().getData().get(0).email,
+                        dbHelper.saveSession(
+                                response.body().getData().get(0).id,
+                                response.body().getData().get(0).email,
                                 response.body().getData().get(0).nama,
                                 response.body().getData().get(0).telpon,
                                 response.body().getData().get(0).alamat,
-                                response.body().getData().get(0).nik);
+                                response.body().getData().get(0).nik,
+                                response.body().getData().get(0).level);
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         startActivity(intent);
                     }

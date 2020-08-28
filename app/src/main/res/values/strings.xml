@@ -7,6 +7,7 @@
     <string name="nama">Rokhani</string>
     <string name="email">fitryarokhani@gmail.com</string>
     <string name="no_telpon">085888842496</string>
+    <string name="BASE_URL">http://kreditcepat.destinyconsultant.tech/</string>
     <string name="about_me">Saya merupakan seorang mahasiswa
  Semester 8 di Universitas Indrapasta PGRI Jurusan Teknik Informatika, Aplikasi ini dibuat untuk memenuhi Tugas Akhir dari kampus dan juga untuk mempermudah pengenalan Peminjaman Dana Online</string>
     <string-array name="jumlah_pinjaman">

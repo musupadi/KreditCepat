@@ -8,6 +8,7 @@ android {
         applicationId "com.destinyapp.kreditcepat"
         minSdkVersion 16
         targetSdkVersion 29
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
 
@@ -40,6 +41,7 @@ dependencies {
     implementation 'com.airbnb.android:lottie:3.3.0'
 
     //new Gradle
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
     implementation 'com.mikhaellopez:circularimageview:3.2.0'
@@ -48,4 +50,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'pub.devrel:easypermissions:0.2.1';
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

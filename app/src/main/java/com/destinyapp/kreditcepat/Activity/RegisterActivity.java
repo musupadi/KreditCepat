@@ -59,7 +59,8 @@ public class RegisterActivity extends AppCompatActivity {
                     nama.getText().toString(),
                     alamat.getText().toString(),
                     telpon.getText().toString(),
-                    nik.getText().toString());
+                    nik.getText().toString(),
+                    "User");
             register.enqueue(new Callback<ResponseModel>() {
                 @Override
                 public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {

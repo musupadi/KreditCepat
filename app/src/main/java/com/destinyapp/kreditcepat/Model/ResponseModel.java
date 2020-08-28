@@ -1,6 +1,6 @@
 package com.destinyapp.kreditcepat.Model;
 
-import com.destinyapp.kreditcepat.Model.Response.Account;
+import com.destinyapp.kreditcepat.Model.Response.DataModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -14,9 +14,10 @@ public class ResponseModel {
     @SerializedName("message")
     @Expose
     String message;
+
     @SerializedName("data")
     @Expose
-    List<Account> data;
+    List<DataModel> data;
 
     @SerializedName("id")
     @Expose
@@ -54,11 +55,11 @@ public class ResponseModel {
         this.status = status;
     }
 
-    public List<Account> getData() {
+    public List<DataModel> getData() {
         return data;
     }
 
-    public void setData(List<Account> data) {
+    public void setData(List<DataModel> data) {
         this.data = data;
     }
 

@@ -2,6 +2,7 @@ package com.destinyapp.kreditcepat.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,10 +13,13 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.destinyapp.kreditcepat.R;
 import com.destinyapp.kreditcepat.SharedPreferance.DB_Helper;
 
+import pub.devrel.easypermissions.EasyPermissions;
+
 public class MainActivity extends AppCompatActivity {
     LottieAnimationView anim;
     DB_Helper dbHelper;
     String email,nama,telpon,alamat,nik;
+    private String[] galleryPermissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +51,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animator animator) {
-                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                startActivity(intent);
-                finish();
+                if (EasyPermissions.hasPermissions(MainActivity.this, galleryPermissions)) {
+                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    EasyPermissions.requestPermissions(MainActivity.this, "Access for storage",
+                            101, galleryPermissions);
+                }
+
             }
 
             @Override
