@@ -66,7 +66,6 @@ public class AdapterPermintaan extends RecyclerView.Adapter<AdapterPermintaan.Ho
             @Override
             public void onClick(View v) {
                 Logic1(dm.getId_user());
-
             }
         });
         holderData.tolak.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +108,6 @@ public class AdapterPermintaan extends RecyclerView.Adapter<AdapterPermintaan.Ho
                 try {
                     if (response.body().getStatus().equals("success")){
                         Logic2(id);
-
                     }else{
                         Toast.makeText(ctx, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -128,6 +126,36 @@ public class AdapterPermintaan extends RecyclerView.Adapter<AdapterPermintaan.Ho
         });
     }
     private void Logic2(String id){
+        final ProgressDialog pd = new ProgressDialog(ctx);
+        pd.setMessage("Sedang Mengubah Data Transaksi");
+        pd.setCancelable(false);
+        pd.show();
+        ApiRequest api = RetroServer.getClient().create(ApiRequest.class);
+        Call<ResponseModel> Logic = api.UpdateTransaksi(id);
+        Logic.enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                try {
+                    if (response.body().getStatus().equals("success")){
+                        Intent intent = new Intent(ctx, PermintaanActivity.class);
+                        ctx.startActivity(intent);
+                    }else{
+                        Toast.makeText(ctx, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }catch (Exception e){
+                    Toast.makeText(ctx, "Terjadi kesalahan pada ="+e.toString(), Toast.LENGTH_SHORT).show();
+                }
+                pd.hide();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+                Toast.makeText(ctx, "Koneksi Gagal", Toast.LENGTH_SHORT).show();
+                pd.hide();
+            }
+        });
+    }
+    private void Logic3(String id){
         final ProgressDialog pd = new ProgressDialog(ctx);
         pd.setMessage("Sedang Mengubah Data Transaksi");
         pd.setCancelable(false);

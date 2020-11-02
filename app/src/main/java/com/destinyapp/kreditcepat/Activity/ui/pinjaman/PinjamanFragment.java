@@ -263,6 +263,12 @@ public class PinjamanFragment extends Fragment {
                                 startActivityForResult(galleryIntent, REQUEST_PICK_PHOTO);
                             }
                         });
+                        close.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialog.hide();
+                            }
+                        });
                     }else{
                         Toast.makeText(getActivity(), "Bukti Pembayaran belum di Check oleh harap tunggu beberapa saat lagi", Toast.LENGTH_SHORT).show();
                     }
@@ -282,7 +288,7 @@ public class PinjamanFragment extends Fragment {
     }
     private void MendapatkanDana(){
         final ProgressDialog pd = new ProgressDialog(getActivity());
-        pd.setMessage("Sedang Mencoba memasukan Dana");
+        pd.setMessage("Sedang Mencoba Menulis Permintaan Dana");
         pd.setCancelable(false);
         pd.show();
         ApiRequest api = RetroServer.getClient().create(ApiRequest.class);
@@ -293,13 +299,13 @@ public class PinjamanFragment extends Fragment {
                 method.getTodays(),
                 method.getTanggalPembayaran(JangkaWaktu.getSelectedItem().toString()),
                 Total.getText().toString(),
-                "BELUM LUNAS"
+                "PERMINTAAN"
         );
         GetData.enqueue(new Callback<ResponseModel>() {
             @Override
             public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
                 try {
-                    Toast.makeText(getActivity(), "Uang Akan ditransferkan ke akun anda", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Data akan di verifikasi oleh Admin", Toast.LENGTH_LONG).show();
                 }catch (Exception e){
                     Toast.makeText(getActivity(), "Terjadi Kesalahan "+e.toString(), Toast.LENGTH_SHORT).show();
                 }

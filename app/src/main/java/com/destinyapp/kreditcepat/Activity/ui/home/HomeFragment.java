@@ -50,11 +50,11 @@ public class HomeFragment extends Fragment {
         Cursor cursor = dbHelper.checkSession();
         if (cursor.getCount()>0){
             while (cursor.moveToNext()){
-                email = cursor.getString(0);
-                nama = cursor.getString(1);
-                telpon = cursor.getString(2);
-                alamat = cursor.getString(3);
-                nik = cursor.getString(4);
+                email = cursor.getString(1);
+                nama = cursor.getString(2);
+                telpon = cursor.getString(3);
+                alamat = cursor.getString(4);
+                nik = cursor.getString(5);
             }
         }
         tvTgl=view.findViewById(R.id.tvTgl);

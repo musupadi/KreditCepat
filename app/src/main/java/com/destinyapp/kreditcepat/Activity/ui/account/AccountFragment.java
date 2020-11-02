@@ -34,6 +34,7 @@ import com.destinyapp.kreditcepat.API.RetroServer;
 import com.destinyapp.kreditcepat.Activity.About.AboutActivity;
 import com.destinyapp.kreditcepat.Activity.HomeActivity;
 import com.destinyapp.kreditcepat.Activity.LoginActivity;
+import com.destinyapp.kreditcepat.Activity.PeminjamanActivity;
 import com.destinyapp.kreditcepat.Activity.PermintaanActivity;
 import com.destinyapp.kreditcepat.Activity.RegisterActivity;
 import com.destinyapp.kreditcepat.Model.Method;
@@ -61,7 +62,7 @@ import retrofit2.Response;
 public class AccountFragment extends Fragment {
     DB_Helper dbHelper;
     String id,email,nama,telpon,alamat,nik,level;
-    LinearLayout masuk,keluar,daftar,tentang,user,admin,pembayaran,history,keuangan,pelunasan,permintaan;
+    LinearLayout masuk,keluar,daftar,tentang,user,admin,pembayaran,history,keuangan,pelunasan,permintaan,peminjaman;
     Date dt;
 
     //Dellaroy Logic
@@ -117,6 +118,7 @@ public class AccountFragment extends Fragment {
         keuangan=view.findViewById(R.id.linearLaporanKeuangan);
         pelunasan=view.findViewById(R.id.linearPelunasan);
         permintaan=view.findViewById(R.id.linearPembayaran);
+        peminjaman=view.findViewById(R.id.linearPeminjaman);
         dialog=new Dialog(getActivity());
         dialog.setContentView(R.layout.dialog_pembayaran);
         submit=dialog.findViewById(R.id.btnSubmit);
@@ -156,6 +158,7 @@ public class AccountFragment extends Fragment {
                 history.setVisibility(View.VISIBLE);
                 keuangan.setVisibility(View.VISIBLE);
                 permintaan.setVisibility(View.VISIBLE);
+                peminjaman.setVisibility(View.VISIBLE);
             }else{
                 pelunasan.setVisibility(View.VISIBLE);
             }
@@ -170,11 +173,19 @@ public class AccountFragment extends Fragment {
             keuangan.setVisibility(View.GONE);
             pelunasan.setVisibility(View.GONE);
             permintaan.setVisibility(View.GONE);
+            peminjaman.setVisibility(View.GONE);
         }
         permintaan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), PermintaanActivity.class);
+                startActivity(intent);
+            }
+        });
+        peminjaman.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), PeminjamanActivity.class);
                 startActivity(intent);
             }
         });
@@ -188,16 +199,48 @@ public class AccountFragment extends Fragment {
         pelunasan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.show();
-                tvTagihan.setVisibility(View.GONE);
-                tvTagihan.setVisibility(View.VISIBLE);
-                upload.setOnClickListener(new View.OnClickListener() {
+                final ProgressDialog pd = new ProgressDialog(getActivity());
+                pd.setMessage("Sedang Mengecheck Transaksi");
+                pd.setCancelable(false);
+                pd.show();
+                ApiRequest api = RetroServer.getClient().create(ApiRequest.class);
+                Call<ResponseModel> checker = api.CheckPinjaman(id);
+                checker.enqueue(new Callback<ResponseModel>() {
                     @Override
-                    public void onClick(View v) {
-                        Bukti = true;
-                        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        startActivityForResult(galleryIntent, REQUEST_PICK_PHOTO);
+                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                        try {
+                            if (response.body().getStatus().equals("failed")){
+                                Toast.makeText(getActivity(), "Silahkan Pinjam dulu dananya", Toast.LENGTH_SHORT).show();
+                            }else{
+                                dialog.show();
+                                tvTagihan.setVisibility(View.GONE);
+                                tvTagihan.setVisibility(View.VISIBLE);
+                                upload.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Bukti = true;
+                                        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                                                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                        startActivityForResult(galleryIntent, REQUEST_PICK_PHOTO);
+                                    }
+                                });
+                                close.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        dialog.hide();
+                                    }
+                                });
+                            }
+                        }catch (Exception e){
+                            Toast.makeText(getActivity(), "Terjadi kesalahan pada = "+e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                        pd.hide();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseModel> call, Throwable t) {
+                        Toast.makeText(getActivity(), "Koneksi Gagal", Toast.LENGTH_SHORT).show();
+                        pd.hide();
                     }
                 });
             }

@@ -43,8 +43,15 @@ public interface ApiRequest {
     @POST("UpdatePembayaran")
     Call<ResponseModel> UpdatePembayaran(@Field("id_user") String id_user);
 
+    @FormUrlEncoded
+    @POST("UpdatePembayaran2")
+    Call<ResponseModel> UpdatePembayaran2(@Field("id_user") String id_user);
+
     @GET("Permintaan")
     Call<ResponseModel> Permintaan();
+
+    @GET("Transaksi")
+    Call<ResponseModel> GetTransaksi();
 
     @FormUrlEncoded
     @POST("Check_transaksi")
@@ -68,4 +75,10 @@ public interface ApiRequest {
     @POST("Bukti")
     Call<ResponseModel> UploadBukti(@Part("id_user") RequestBody id_user,
                                  @Part MultipartBody.Part bukti);
+
+    @FormUrlEncoded
+    @POST("UpdateTransaksi")
+    Call<ResponseModel> UpdateTransaksi(@Field("id_transaksi") String id_transaksi,
+                                  @Field("status") String status);
+
 }
