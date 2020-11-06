@@ -151,6 +151,7 @@ public class AccountFragment extends Fragment {
             keuangan.setVisibility(View.GONE);
             permintaan.setVisibility(View.GONE);
             pelunasan.setVisibility(View.GONE);
+            peminjaman.setVisibility(View.GONE);
             if (level.equals("Admin")){
                 user.setVisibility(View.VISIBLE);
                 admin.setVisibility(View.VISIBLE);
