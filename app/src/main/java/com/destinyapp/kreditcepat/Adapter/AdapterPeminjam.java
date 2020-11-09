@@ -61,11 +61,11 @@ public class AdapterPeminjam extends RecyclerView.Adapter<AdapterPeminjam.Holder
         final DataModel dm = mList.get(posistion);
         method=new Method();
         if (stat.equals("PERMINTAAN")){
-            if (dm.getStatus().equals("LUNAS") || dm.getStatus().equals("DITERIMA") || dm.getStatus().equals("DITOLAK") || dm.getStatus().equals("BELUM LUNAS")){
+            if (!dm.getStatus_2().equals("PERMINTAAN")){
                 holderData.card.setVisibility(View.GONE);
             }
         }else{
-            if (dm.getStatus().equals("PERMINTAAN")){
+            if (dm.getStatus_2().equals("PERMINTAAN")){
                 holderData.card.setVisibility(View.GONE);
             }
         }
@@ -79,11 +79,11 @@ public class AdapterPeminjam extends RecyclerView.Adapter<AdapterPeminjam.Holder
             holderData.tolak.setVisibility(View.GONE);
             holderData.terima.setBackgroundResource(R.drawable.button_rounded_green);
             holderData.terima.setText("Lunas");
-        }else if(dm.getStatus().equals("BELUM LUNAS")){
+        }else if(dm.getStatus_2().equals("DITERIMA")){
             holderData.tolak.setVisibility(View.GONE);
             holderData.terima.setBackgroundResource(R.drawable.button_rounded_blue);
             holderData.terima.setText("Diterima");
-        }else if (dm.getStatus().equals("DITOLAK")){
+        }else if (dm.getStatus_2().equals("DITOLAK")){
             holderData.tolak.setVisibility(View.GONE);
             holderData.terima.setBackgroundResource(R.drawable.button_rounded_red);
             holderData.terima.setText("Ditolak");
@@ -91,7 +91,7 @@ public class AdapterPeminjam extends RecyclerView.Adapter<AdapterPeminjam.Holder
         holderData.terima.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (dm.getStatus().equals("PERMINTAAN")){
+                if (dm.getStatus_2().equals("PERMINTAAN")){
                     LOGIC(dm.getId_transaksi(),"BELUM LUNAS",holderData.card);
                 }
             }
@@ -134,7 +134,7 @@ public class AdapterPeminjam extends RecyclerView.Adapter<AdapterPeminjam.Holder
         pd.setCancelable(false);
         pd.show();
         ApiRequest api = RetroServer.getClient().create(ApiRequest.class);
-        Call<ResponseModel> Logic = api.UpdateTransaksi(id,Status);
+        Call<ResponseModel> Logic = api.UpdateTransaksi(id,"BELUM LUNAS","DITERIMA");
         Logic.enqueue(new Callback<ResponseModel>() {
             @Override
             public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {

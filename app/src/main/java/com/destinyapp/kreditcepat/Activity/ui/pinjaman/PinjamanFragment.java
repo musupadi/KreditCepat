@@ -32,7 +32,9 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.destinyapp.kreditcepat.API.ApiRequest;
 import com.destinyapp.kreditcepat.API.RetroServer;
+import com.destinyapp.kreditcepat.Activity.PermintaanActivity;
 import com.destinyapp.kreditcepat.Activity.RegisterActivity;
+import com.destinyapp.kreditcepat.Adapter.AdapterPermintaan;
 import com.destinyapp.kreditcepat.Model.Method;
 import com.destinyapp.kreditcepat.Model.ResponseModel;
 import com.destinyapp.kreditcepat.R;
@@ -60,7 +62,7 @@ public class PinjamanFragment extends Fragment {
     DB_Helper dbHelper;
     String id,email,nama,telpon,alamat,nik,level;
     LinearLayout bayar;
-
+    String IDS = "1";
 
     //Dellaroy Logic
     private static final int REQUEST_TAKE_PHOTO = 0;
@@ -158,10 +160,11 @@ public class PinjamanFragment extends Fragment {
                             @Override
                             public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
                                 try {
-                                    if (response.body().getStatus().equals("failed")){
+                                    if (response.body().getStatus().equals("failed") || response.body().getData().size() < 1){
                                         MendapatkanDana();
                                     }else{
-                                       CheckPembayaran();
+//                                        Toast.makeText(getActivity(), response.body().getData().get(0).getId_transaksi(), Toast.LENGTH_SHORT).show();
+                                        CheckFirstBayar();
                                     }
                                 }catch (Exception e){
                                     Toast.makeText(getActivity(), "Terjadi kesalahan pada = "+e.toString(), Toast.LENGTH_SHORT).show();
@@ -185,35 +188,34 @@ public class PinjamanFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 final ProgressDialog pd = new ProgressDialog(getActivity());
-                pd.setMessage("Sedang Menyimpan data ke Server");
+                pd.setMessage("Sedang Mengecheck Transaksi");
                 pd.setCancelable(false);
                 pd.show();
-                File fileBukti = new File(postBukti);
-                RequestBody fileReqBodyBukti = RequestBody.create(MediaType.parse("image/*"), fileBukti);
-                MultipartBody.Part partBukti = MultipartBody.Part.createFormData("bukti", fileBukti.getName(), fileReqBodyBukti);
                 ApiRequest api = RetroServer.getClient().create(ApiRequest.class);
-                Call<ResponseModel> Upload = api.UploadBukti(
-                        RequestBody.create(MediaType.parse("text/plain"),id),
-                        partBukti
-                );
-                Upload.enqueue(new Callback<ResponseModel>() {
+                Call<ResponseModel> checker = api.CheckPinjaman(id);
+                checker.enqueue(new Callback<ResponseModel>() {
                     @Override
                     public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                        pd.hide();
                         try {
-                            Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
+                            if (response.body().getStatus().equals("failed") || response.body().getData().size() < 1){
+
+                            }else{
+//                                Toast.makeText(getActivity(),response.body().getData().get(response.body().getData().size()-1).getId_transaksi() , Toast.LENGTH_SHORT).show();
+                                LODICS(response.body().getData().get(response.body().getData().size()-1).getId_transaksi());
+                            }
                         }catch (Exception e){
-                            Toast.makeText(getActivity(), "Terjadi kesalahan = "+e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Terjadi kesalahan pada = "+e.toString(), Toast.LENGTH_SHORT).show();
                         }
+                        pd.hide();
                     }
 
                     @Override
                     public void onFailure(Call<ResponseModel> call, Throwable t) {
-                        pd.hide();
                         Toast.makeText(getActivity(), "Koneksi Gagal", Toast.LENGTH_SHORT).show();
+                        pd.hide();
                     }
                 });
+
             }
         });
         method=new Method();
@@ -237,6 +239,85 @@ public class PinjamanFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
+    }
+    private void LODICS(String data){
+        final ProgressDialog pd = new ProgressDialog(getActivity());
+        pd.setMessage("Sedang Menyimpan data ke Server");
+        pd.setCancelable(false);
+        pd.show();
+        File fileBukti = new File(postBukti);
+        RequestBody fileReqBodyBukti = RequestBody.create(MediaType.parse("image/*"), fileBukti);
+        MultipartBody.Part partBukti = MultipartBody.Part.createFormData("bukti", fileBukti.getName(), fileReqBodyBukti);
+        ApiRequest api = RetroServer.getClient().create(ApiRequest.class);
+        Call<ResponseModel> Upload = api.UploadBukti(
+                RequestBody.create(MediaType.parse("text/plain"),id),
+                RequestBody.create(MediaType.parse("text/plain"),data),
+                partBukti
+        );
+        Upload.enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                pd.hide();
+                try {
+                    Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }catch (Exception e){
+                    Toast.makeText(getActivity(), "Terjadi kesalahan = "+e.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+                pd.hide();
+                Toast.makeText(getActivity(), "Koneksi Gagal", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void GetCheckTransaksi(){
+        ApiRequest api = RetroServer.getClient().create(ApiRequest.class);
+        Call<ResponseModel> Data = api.CheckPinjaman(id);
+        Data.enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                try {
+                    if (response.body().getStatus().equals("failed")){
+                        CheckPembayaran();
+                    }else{
+                        Toast.makeText(getActivity(), "Peminjaman Belum Diverifikasi", Toast.LENGTH_SHORT).show();
+                    }
+                }catch (Exception e){
+                    Toast.makeText(getActivity(), "Terjadi Kesalahan "+e.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+                Toast.makeText(getActivity(), "Koneksi Gagal", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void CheckFirstBayar(){
+        ApiRequest api = RetroServer.getClient().create(ApiRequest.class);
+        Call<ResponseModel> Data = api.PostPermintaan(id);
+        Data.enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                try {
+                    if (response.body().getStatus().equals("failed")){
+                        CheckPembayaran();
+                    }else{
+                        Toast.makeText(getActivity(), "Peminjaman Belum Diverifikasi", Toast.LENGTH_SHORT).show();
+                    }
+                }catch (Exception e){
+                    Toast.makeText(getActivity(), "Terjadi Kesalahan "+e.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+                Toast.makeText(getActivity(), "Koneksi Gagal", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -299,7 +380,7 @@ public class PinjamanFragment extends Fragment {
                 method.getTodays(),
                 method.getTanggalPembayaran(JangkaWaktu.getSelectedItem().toString()),
                 Total.getText().toString(),
-                "PERMINTAAN"
+                "BELUM LUNAS"
         );
         GetData.enqueue(new Callback<ResponseModel>() {
             @Override

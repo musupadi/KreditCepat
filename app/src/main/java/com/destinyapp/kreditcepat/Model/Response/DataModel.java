@@ -64,6 +64,10 @@ public class DataModel {
     @Expose
     public String status;
 
+    @SerializedName("status_2")
+    @Expose
+    public String status_2;
+
     @SerializedName("masa_tenggang")
     @Expose
     public String masa_tenggang;
@@ -223,5 +227,13 @@ public class DataModel {
 
     public void setTotal_pinjaman(String total_pinjaman) {
         this.total_pinjaman = total_pinjaman;
+    }
+
+    public String getStatus_2() {
+        return status_2;
+    }
+
+    public void setStatus_2(String status_2) {
+        this.status_2 = status_2;
     }
 }

@@ -64,7 +64,7 @@ public class AccountFragment extends Fragment {
     String id,email,nama,telpon,alamat,nik,level;
     LinearLayout masuk,keluar,daftar,tentang,user,admin,pembayaran,history,keuangan,pelunasan,permintaan,peminjaman;
     Date dt;
-
+    String ID_TRANSAKSI = "0";
     //Dellaroy Logic
     private static final int REQUEST_TAKE_PHOTO = 0;
     private static final int REQUEST_PICK_PHOTO = 2;
@@ -161,7 +161,7 @@ public class AccountFragment extends Fragment {
                 permintaan.setVisibility(View.VISIBLE);
                 peminjaman.setVisibility(View.VISIBLE);
             }else{
-                pelunasan.setVisibility(View.VISIBLE);
+//                pelunasan.setVisibility(View.VISIBLE);
             }
         }else{
             masuk.setVisibility(View.VISIBLE);
@@ -213,24 +213,34 @@ public class AccountFragment extends Fragment {
                             if (response.body().getStatus().equals("failed")){
                                 Toast.makeText(getActivity(), "Silahkan Pinjam dulu dananya", Toast.LENGTH_SHORT).show();
                             }else{
-                                dialog.show();
-                                tvTagihan.setVisibility(View.GONE);
-                                tvTagihan.setVisibility(View.VISIBLE);
-                                upload.setOnClickListener(new View.OnClickListener() {
+                                final ProgressDialog pd = new ProgressDialog(getActivity());
+                                pd.setMessage("Sedang Mengecheck Transaksi");
+                                pd.setCancelable(false);
+                                pd.show();
+                                ApiRequest api = RetroServer.getClient().create(ApiRequest.class);
+                                Call<ResponseModel> checker = api.CheckPinjaman(id);
+                                checker.enqueue(new Callback<ResponseModel>() {
                                     @Override
-                                    public void onClick(View v) {
-                                        Bukti = true;
-                                        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                                                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                        startActivityForResult(galleryIntent, REQUEST_PICK_PHOTO);
+                                    public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                                        try {
+                                            if (response.body().getStatus().equals("failed")){
+                                                CheckFirstBayar();
+                                            }else{
+                                                Toast.makeText(getActivity(), "Anda Belum meminjam uang atau bukti pembayaran masih diverifikasi admin", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }catch (Exception e){
+                                            Toast.makeText(getActivity(), "Terjadi kesalahan pada = "+e.toString(), Toast.LENGTH_SHORT).show();
+                                        }
+                                        pd.hide();
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseModel> call, Throwable t) {
+                                        Toast.makeText(getActivity(), "Koneksi Gagal", Toast.LENGTH_SHORT).show();
+                                        pd.hide();
                                     }
                                 });
-                                close.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        dialog.hide();
-                                    }
-                                });
+
                             }
                         }catch (Exception e){
                             Toast.makeText(getActivity(), "Terjadi kesalahan pada = "+e.toString(), Toast.LENGTH_SHORT).show();
@@ -324,6 +334,7 @@ public class AccountFragment extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LOGICS();
                 final ProgressDialog pd = new ProgressDialog(getActivity());
                 pd.setMessage("Sedang Menyimpan data ke Server");
                 pd.setCancelable(false);
@@ -334,6 +345,7 @@ public class AccountFragment extends Fragment {
                 ApiRequest api = RetroServer.getClient().create(ApiRequest.class);
                 Call<ResponseModel> Upload = api.UploadBukti(
                         RequestBody.create(MediaType.parse("text/plain"),id),
+                        RequestBody.create(MediaType.parse("text/plain"),ID_TRANSAKSI),
                         partBukti
                 );
                 Upload.enqueue(new Callback<ResponseModel>() {
@@ -354,6 +366,53 @@ public class AccountFragment extends Fragment {
                         Toast.makeText(getActivity(), "Koneksi Gagal", Toast.LENGTH_SHORT).show();
                     }
                 });
+            }
+        });
+    }
+    private void LOGICS(){
+        final ProgressDialog pd = new ProgressDialog(getActivity());
+        pd.setMessage("Sedang Menyimpan data ke Server");
+        pd.setCancelable(false);
+        pd.show();
+    }
+    private void CheckFirstBayar(){
+        ApiRequest api = RetroServer.getClient().create(ApiRequest.class);
+        Call<ResponseModel> Data = api.PostPermintaan(id);
+        Data.enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                try {
+                    if (response.body().getStatus().equals("failed")){
+                        dialog.show();
+                        tvTagihan.setVisibility(View.GONE);
+                        tvTagihan.setVisibility(View.VISIBLE);
+                        upload.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Bukti = true;
+                                Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                startActivityForResult(galleryIntent, REQUEST_PICK_PHOTO);
+                            }
+                        });
+                        close.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialog.hide();
+                            }
+                        });
+                    }else{
+                        ID_TRANSAKSI = response.body().getData().get(0).getId_transaksi();
+                        Toast.makeText(getActivity(), "Peminjaman Belum Diverifikasi", Toast.LENGTH_SHORT).show();
+                    }
+                }catch (Exception e){
+                    Toast.makeText(getActivity(), "Terjadi Kesalahan "+e.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+                Toast.makeText(getActivity(), "Koneksi Gagal", Toast.LENGTH_SHORT).show();
             }
         });
     }

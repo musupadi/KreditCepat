@@ -135,7 +135,7 @@ public class Method {
         }else if(bulan.equals("Dec")){
             Bulan = "Desember";
         }
-        return tgl+" "+Bulan+" "+tahun;
+        return getToday()+", "+tgl+" "+Bulan+" "+tahun;
     }
     public String Dates(String tanggal){
         String tgl = tanggal.substring(8,10);
